@@ -1,24 +1,17 @@
-console.log('Try npm run lint/fix!');
+import { config } from 'dotenv';
+import * as express from 'express';
+import { Application, Request, Response } from 'express';
 
-const longString =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
+config();
 
-const trailing = 'Semicolon';
+const app: Application = express();
 
-const why = 'am I tabbed?';
+app.get('/', (req: Request, res: Response) => {
+  res.send('Express server with TypeScript');
+});
 
-export function doSomeStuff(
-  withThis: string,
-  andThat: string,
-  andThose: string[]
-) {
-  //function on one line
-  if (!andThose.length) {
-    return false;
-  }
-  console.log(withThis);
-  console.log(andThat);
-  console.dir(andThose);
-  return;
-}
-// TODO: more examples
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});
