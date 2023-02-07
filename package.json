@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node build/index.js",
-    "dev": "nodemon src/index.ts",
+    "db:restart": "docker compose down && docker compose up -d && sleep 1",
+    "prestart": "npm run db:restart && dotenv -e .env -- prisma migrate dev",
+    "start": "npm run db:restart && node build/index.js",
+    "dev": "npm run db:restart && nodemon src/index.ts",
     "lint": "eslint \"**/*.ts\" --max-warnings=0",
     "clean": "gts clean",
     "compile": "tsc",
@@ -23,6 +25,7 @@
     "gts": "^3.1.1",
     "husky": "^8.0.3",
     "nodemon": "^2.0.20",
+    "prisma": "^4.10.0",
     "ts-node": "^10.9.1",
     "typescript": "~4.7.0"
   },
